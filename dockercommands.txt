@@ -9,6 +9,9 @@ docker run --name mongo-c1 -p 27017:27017 -d mongo:latest #mongo server process
 docker exec -it mongo-c1 mongo #creates mongo client
 docker logs <containerid>
 
+docker run --name boa-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=boamsmar2022customerdb -e MYSQL_USER=demo_user -e MYSQL_PASSWORD=demo_pass -d mysql
+
+
 #build the image
 pull the project from git
 check dockerfile
