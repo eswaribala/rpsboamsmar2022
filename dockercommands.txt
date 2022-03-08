@@ -13,6 +13,8 @@ docker run --name boa-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=bo
 
 docker exec -it boa-mysql mysql -u root -p
 
+docker run -it -p 7070:7070 --name userapp-c1 --link boa-mysql:mysql userapp:latest
+
 
 #build the image
 pull the project from git
