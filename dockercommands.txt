@@ -21,6 +21,8 @@ pull the project from git
 check dockerfile
 docker build -f ./Dockerfile -t invapp .
 
+docker tag userservice:latest eswaribala/boamsmar2022:userservicev1
+docker push eswaribala/boamsmar2022:userservicev1
 
 Data Volume
 Method 1
