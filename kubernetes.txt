@@ -8,6 +8,41 @@ kubectl apply -f admin-role-binding.yml
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | sls admin-user | ForEach-Object { $_ -Split '\s+' } | Select -First 1)
 kubectl proxy
 
+Creating the secrets
+echo -n 'dbadmin' > ./username.txt
+echo -n 'db3344@@pwd' > ./password.txt
+kubectl create secret generic my-db-secret-from-files --from-file=./username.txt --from-file=./password.txt
+kubectl get secrets
+
+kubectl describe secrets/my-db-secret-from-files
+
+kubectl apply -f mysecpod.yaml
+
+kubectl describe -f mysecpod.yaml 
+
+method 2
+kubectl create secret generic mysql-database --from-literal=MYSQL_DATABASE="thedatabase"
+kubectl create secret generic mysql-username --from-literal=MYSQL_USERNAME="theusername"
+kubectl create secret generic mysql-password --from-literal=MYSQL_PASSWORD="thepassword"
+
+
+
+
+
+
+
+
+kubectl create secret generic mysql-root-pass --from-literal=password=password
+
+kubectl create secret generic mysql-user-pass --from-literal=username=demo_user --from-literal=password=demo_pass
+
+kubectl create secret generic mysql-db-url --from-literal=database=virtusausappointmentdb --from-literal=url='jdbc:mysql://mysql:3306/virtusausappointmentdb?useSSL=false
+
+kubectl get secrets
+kubectl describe secrets mysql-user-pass
+kubectl get persistentvolumes
+
+
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 kubectl apply -f mysql-pv.yaml
 kubectl get pv
