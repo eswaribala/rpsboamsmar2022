@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: userdeploy
+  name: userdeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userdeploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: userdeploy
+    spec:
+      containers:
+      - image: eswaribala/boamsmar2022:userservicev1
+        name: user-app
+        resources: {}          
+        
+        env:
+            - name: MYSQL_URL
+              value: jdbc:mysql://mysql:3306/boamsmar2022customerdb?useSSL=false
+      #imagePullSecrets:  
+      #- name: globalaks-key
+
+status: {}
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: userservice
+  name: userservice
+spec:
+    
+  ports:
+  - protocol: TCP
+    port: 7070
+    targetPort: 7070
+    name: http
+  
+  selector:
+    app: userdeploy
+  type: ClusterIP
+status:
+  loadBalancer: {}
